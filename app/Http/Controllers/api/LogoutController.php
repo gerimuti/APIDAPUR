@@ -18,15 +18,15 @@ class LogoutController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function __invoke(Request $request)
-    {        
+    {
         //remove token
         $removeToken = JWTAuth::invalidate(JWTAuth::getToken());
 
-        if($removeToken) {
+        if ($removeToken) {
             //return response JSON
             return response()->json([
                 'success' => true,
-                'message' => 'Logout Berhasil!',  
+                'message' => 'Logout Berhasil!',
             ]);
         }
     }

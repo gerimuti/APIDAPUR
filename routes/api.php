@@ -7,6 +7,7 @@ use App\Http\Controllers\api\ResepController;
 use App\Http\Controllers\Api\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
+use App\Http\Controllers\FavoriteController;
 
 Route::prefix('resep')->group(function () {
     Route::get('/', [ResepController::class, 'index']);
@@ -30,6 +31,12 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::post('/register', App\Http\Controllers\api\RegisterController::class)->name('register');
 Route::post('/login', App\Http\Controllers\Api\LoginController::class)->name('login');
 Route::post('/logout', App\Http\Controllers\Api\LogoutController::class)->name('logout');
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::post('/favorites', [FavoriteController::class, 'store']);
+    Route::get('/favorites', [FavoriteController::class, 'index']);
+    Route::delete('/favorites/{id}', [FavoriteController::class, 'destroy']);
+});
 // Route::post('/register', [RegisterController::class, 'register']);
 // Route::post('/login', [LoginController::class, 'login']);
 // Route::post('/logout', [LogoutController::class, 'logout'])->middleware('auth:sanctum');
